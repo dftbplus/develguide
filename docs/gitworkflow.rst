@@ -7,6 +7,67 @@ Git workflow
 General workflow
 ================
 
+For developing any project, we use the workflow as described by Vincent Driessen
+in `A successful Git branching model
+<http://nvie.com/posts/a-successful-git-branching-model/>`_. The main points for
+most developers are:
+
+* The `master` branch only contains official (tagged) releases.
+
+* Development happens on the `develop` branch, which always contains a clean
+  release-ready code.
+
+* Every feature is developed in a separate feature branch. If the feature is
+  mature enough (it works correclty, its code is clean, it is well documented,
+  automatic tests has been created etc.), the feature branch will be merged to
+  the `develop` branch.
+
+The main official public repository only contains the branches `master` and
+`develop` (and eventual short living intermediate branches like `release` and
+`hotfix`). In order to add a feature, you have to do the following steps:
+
+#. Fork the official (upstream) repository. (This step you have to do only
+   once. If you've already forked the upstream repository, skip it.)
+
+#. Derive a feature branch from the `develop` branch of your forked project.
+
+#. Develop your feature in your feature branch.
+
+#. Regularly update your `develop` branch from the upstream `develop` branch to
+   make sure, your `develop` branch remains identical to the upstream one.
+
+#. Regularly merge your `develop` branch into your feature branch, to make sure,
+   your feature branch is based on the most recent state of the upstream
+   `develop` branch.
+
+#. When the feature implementation has finished, do repeat 4 and 5 once
+   more. Then issue a *pull request* of your feature branch into the `develop`
+   branch of the upstream repository.
+
+#. Wait for feedback from the core developers, and apply possible improvments
+   you were asked for (to the feature branch). Also make sure to keep your
+   feature branch still up to date with the upstream `develop` by executing
+   steps 4 and 5.
+
+#. When you obtain the notification, that your feature branch had been merged to
+   the upstream `develop` branch, delete your feature branch in your personal
+   repository. 
+
+#. In order to develop the next feature, execute the steps above again,
+   *starting from step 2*.
+
+
+Below you find a detailed description of each step. We use the site
+`bitbucket.org` as git host in the examples below, but it should similarly work
+for most other common git repository hosts. As the overall repository access
+paths are usually similar on those sites, it should be probably enough just to
+replace ``bitbucket.org`` with your provider name (e.g. ``github.org``,
+``gitlab.com``) in the examples below.
+
+
+Forking the project
+===================
+
 #. Fork the desired repository `REPO` (owned by the user `UPSTREAM`) to
    *your personal* Bitbucket account. You find the `Fork` action in the menu
    indicated by three dots below the project logo.
