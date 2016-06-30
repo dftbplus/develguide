@@ -1,5 +1,6 @@
+*******************
 Fortran style guide
-===================
+*******************
 
 The main leading principle when contributing code to Fortran projects should be
 readability. If your code can not be easily read and understood by others, it
@@ -13,7 +14,7 @@ the conventions in it.
 
 
 Line length and indentation
----------------------------
+===========================
 
 * Maximal **line length** is **80** characters. For lines longer than that, use
   continuation lines.
@@ -40,10 +41,13 @@ Line length and indentation
   continuation line.
 
 
-Case conventions
-----------------
-The case conventions basically follow the Google Style Guide for the Java
-language, with minor modifications.
+Naming
+======
+
+The naming conventions basically follow those in the `Google Style Guide for
+Java naming convention
+<https://google.github.io/styleguide/javaguide.html#s5-naming>`_, with minor
+modifications.
 
 * **Variable** names follow the **lowerCamelCase** convention::
 

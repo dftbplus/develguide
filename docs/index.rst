@@ -1,9 +1,10 @@
-================
-Developers Guide
-================
+#######################
+DFTB+ Developers Guide
+#######################
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
    gitworkflow.rst
    fortranstyle.rst
+   licence.rst
