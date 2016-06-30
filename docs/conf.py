@@ -46,7 +46,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'Developers guide'
+project = 'DFTB+ Developers guide'
 copyright = '2016, DFTB+ developers'
 author = 'DFTB+ developers'
 
