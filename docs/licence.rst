@@ -26,7 +26,7 @@ The licensor cannot revoke these freedoms as long as you follow the license
 terms.
 
 
-Under the followint terms
+Under the following terms
 -------------------------
 
 **Attribution**
