@@ -16,7 +16,7 @@ the conventions in it.
 Line length and indentation
 ===========================
 
-* Maximal **line length** is **80** characters. For lines longer than that, use
+* Maximal **line length** is **100** characters. For lines longer than that, use
   continuation lines.
 
 * **Nested blocks** are indented by **+2** whitespaces::
