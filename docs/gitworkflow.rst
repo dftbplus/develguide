@@ -22,9 +22,13 @@ most developers are:
   automatic tests has been created etc.), the feature branch will be merged to
   the `develop` branch.
 
-The main official public repository only contains the branches `master` and
-`develop` (and eventual short living intermediate branches like `release` and
-`hotfix`). In order to add a feature, you have to do the following steps:
+The main official public (upstream) repository only contains two branches: the
+branches `master` and `develop`. Some short living intermediate branches
+(e.g. `release` and `hotfix`) may appear time to time, but they are special
+purpose branches created by the administrators/release managers and are not
+meant being used for feature develoment.
+
+In order to add a feature, you have to do the following steps:
 
 #. Fork the official (upstream) repository. (This step you have to do only
    once. If you've already forked the upstream repository, skip it.)
