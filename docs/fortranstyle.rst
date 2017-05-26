@@ -10,7 +10,11 @@ the principle of least surprise.
 
 Below, you find some explicit coding rules we try to follow. The list can not
 cover all aspects, so also look at the existing source code and try to follow
-the conventions in it.
+the conventions there in.
+
+If you use Emacs as editor, consider to add `appropriate customisation settings
+<https://gist.github.com/aradi/68a4ff8430a735de13f13393213f0ea8>`_ to your
+config file in order to automatically enforce some of the conventions below.
 
 
 Line length and indentation
@@ -19,7 +23,7 @@ Line length and indentation
 * Maximal **line length** is **100** characters. For lines longer than that, use
   continuation lines.
 
-* **Nested blocks** are indented by **+2** whitespaces::
+* **Nested blocks** are indented by **2** whitespaces::
     
      write(*, *) "Nested block follows"
      do ii = 1, 100
@@ -29,15 +33,15 @@ Line length and indentation
        end if
      end do
 
-* **Continuation lines** are indented by **+4** whitespaces. Make sure to
+* **Continuation lines** are indented by **4** whitespaces. Make sure to
   place continuation characters (`&`) both at the end of the line as well as at
   the beginning of the continuation line::
 
       call someRoutineWithManyParameters(param1, param2, param3, param4,&
           & param5)
 
-  Please, try to break lines at natural places (e.g. at whitespace characters)
-  and include one whitespace character after the opening ampersand in the
+  Try to break lines at natural places (e.g. at whitespace characters) and
+  include one whitespace character after the opening ampersand in the
   continuation line.
 
 
@@ -83,8 +87,8 @@ modifications.
 
   Underscores are used for namespacing only, so the module above would be
   typically found under the path `dftb/common/accuracy.f90`. The individual
-  component names (``dftb``, ``common``, ``accuracy``) should not contain any
-  underscores.
+  component names (``dftb``, ``common``, ``accuracy``) may not contain any
+  underscores and must be shorter than 15 characters.
 
 
 Whitespaces
@@ -123,7 +127,7 @@ whitespaces in following situations:
 
 You **may omit** whitespace in following cases:
 
-* When separating array indices, and the actual index values are simple and
+* When separating array indices and the actual index values are simple and
   short (typically two letters) variable names, one or two digit integers or the
   range operator ``:``::
 
@@ -144,7 +148,11 @@ You **must omit** whitespaces in following cases:
 
       call mySubroutine(aa, optionalArgument=.true.)
 
-**Avoid** to use whitespace for **visual aligning** of code lines. So use::
+* Around the power operator::
+
+      val = base**power   (instead of val = base ** power)
+
+**Avoid** to use whitespaces for **visual aligning** of code lines. So use::
 
       integer, intent(in) :: nNeighbors
       real(wp), intent(out) :: interaction
@@ -157,14 +165,15 @@ instead of::
 Although latter may look more readable, it makes rather difficult to track real
 changes in the code with the revision control system. When a new line is added
 to the block making the realignment of previous (otherwise unchanged) lines
-::
+necessary ::
 
       integer, intent(in)             :: nNeighbors
       real(wp), intent(out)           :: energy
       real(wp), intent(out), optional :: forces(:)
 
-the version control system will indicated them as changed lines, although only
-the alignment (but not the actual instructions) where changed.
+the version control system will indicate all of those lines having been
+modified, although only the alignments (but not the actual instructions) where
+changed.
 
 
 Comments
