@@ -1,18 +1,18 @@
 *******************
-Fortran style guide
+FORTRAN style guide
 *******************
 
-The main leading principle when contributing code to Fortran projects should be
-readability. If your code can not be easily read and understood by others, it
-will be hard to maintain and extend it. It should also fit well to existing
+The main principle when contributing code to FORTRAN projects should be
+readability. If your code can not be easily read and understood by others it
+will be hard to maintain and extend. It should also fit well with the existing
 parts of the code (in style as well as in its programming paradigms) maintaining
 the principle of least surprise.
 
-Below, you find some explicit coding rules we try to follow. The list can not
-cover all aspects, so also look at the existing source code and try to follow
-the conventions there in.
+Below you will find some explicit coding rules we try to follow. The list can
+not cover all aspects, so also look at the existing source code and try to
+follow the conventions being used.
 
-If you use Emacs as editor, consider to add `appropriate customisation settings
+If you use Emacs as editor, consider adding `appropriate customisation settings
 <https://gist.github.com/aradi/68a4ff8430a735de13f13393213f0ea8>`_ to your
 config file in order to automatically enforce some of the conventions below.
 
@@ -23,7 +23,7 @@ Line length and indentation
 * Maximal **line length** is **100** characters. For lines longer than that, use
   continuation lines.
 
-* **Nested blocks** are indented by **2** whitespaces::
+* **Nested blocks** are indented by **2** white spaces::
     
      write(*, *) "Nested block follows"
      do ii = 1, 100
@@ -33,15 +33,15 @@ Line length and indentation
        end if
      end do
 
-* **Continuation lines** are indented by **4** whitespaces. Make sure to
+* **Continuation lines** are indented by **4** white spaces. Make sure to
   place continuation characters (`&`) both at the end of the line as well as at
   the beginning of the continuation line::
 
       call someRoutineWithManyParameters(param1, param2, param3, param4,&
           & param5)
 
-  Try to break lines at natural places (e.g. at whitespace characters) and
-  include one whitespace character after the opening ampersand in the
+  Try to break lines at natural places (e.g. at white space characters) and
+  include one white space character after the opening ampersand in the
   continuation line.
 
 
@@ -61,8 +61,8 @@ modifications.
     
       integer, parameter :: MAX_ARRAY_SIZE = 100
 
-  with the exception of constants used to define the kind parameter for
-  intrinsic types, as those should be all lowercase (and short)::
+  with the exception of the constants used to define the kind parameter for
+  intrinsic types, which should be all lowercase (and short)::
 
       integer, parameter :: dp = kind(1.0d0)
       real(dp) :: val
@@ -81,21 +81,21 @@ modifications.
       type(RealList) :: myList
       
 
-* **Module** names follow **lower_case_with_underscore** convection::
+* **Module** names follow **lower_case_with_underscore** convention::
 
       use dftb_common_accuracy
 
-  Underscores are used for namespacing only, so the module above would be
-  typically found under the path `dftb/common/accuracy.f90`. The individual
+  Underscores are used for name-spacing only, so the module above would be
+  typically found at the path `dftb/common/accuracy.f90`. The individual
   component names (``dftb``, ``common``, ``accuracy``) may not contain any
   underscores and must be shorter than 15 characters.
 
 
-Whitespaces
-===========
+White spaces
+============
 
-Please use whitespaces to make the code readable. In general, you **must use**
-whitespaces in following situations:
+Please use white spaces to make the code readable. In general, you **must use**
+white spaces in following situations:
 
 * Around arithmetic operators::
     
@@ -106,11 +106,12 @@ whitespaces in following situations:
       aa = 3 + 2
       pWindow => array(1:3)
 
-* Arround the ``::`` separator in declarations::
+* Around the ``::`` separator in declarations::
 
       integer :: ind
 
-* After comma (``,``) in generally, especially in declarations, calls, lists::
+* After commas (``,``) in general and especially in declarations, calls and
+  lists::
 
       real(wp), allocatable :: array(:)
       type, extends(BaseType) :: DerivedType
@@ -125,7 +126,7 @@ whitespaces in following situations:
 
       myArray(ii + 2, jj) = 12
 
-You **may omit** whitespace in following cases:
+You **may omit** white space in following cases:
 
 * When separating array indices and the actual index values are simple and
   short (typically two letters) variable names, one or two digit integers or the
@@ -135,7 +136,7 @@ You **may omit** whitespace in following cases:
       latVecs(1,1) = 1.0_wp
       myArray(ii,jj) = myArray(jj,ii)
 
-You **must omit** whitespaces in following cases:
+You **must omit** white spaces in following cases:
 
 * Around opening and closing braces of any kind::
 
@@ -152,7 +153,7 @@ You **must omit** whitespaces in following cases:
 
       val = base**power   (instead of val = base ** power)
 
-**Avoid** to use whitespaces for **visual aligning** of code lines. So use::
+**Avoid** white spaces for **visual aligning** of code, use::
 
       integer, intent(in) :: nNeighbors
       real(wp), intent(out) :: interaction
@@ -163,16 +164,16 @@ instead of::
       real(wp), intent(out) :: energy
 
 Although latter may look more readable, it makes rather difficult to track real
-changes in the code with the revision control system. When a new line is added
-to the block making the realignment of previous (otherwise unchanged) lines
-necessary ::
+changes in the code with the revision control system. For example when a new
+line is added to the block making the realignment of previous (but otherwise
+unchanged) lines necessary ::
 
       integer, intent(in)             :: nNeighbors
       real(wp), intent(out)           :: energy
       real(wp), intent(out), optional :: forces(:)
 
 the version control system will indicate all of those lines having been
-modified, although only the alignments (but not the actual instructions) where
+modified, although only the alignment (but not the actual instructions) were
 changed.
 
 
@@ -186,8 +187,8 @@ Comments
 
 * Generally, write the comment *before* the code snippet it documents::
    
-      ! Loop over all neighbors
-      do iNeigh = 1, nNeighbors
+      ! Loop over all neighbours
+      do iNeigh = 1, nNeighbours
         :
       end do
 
@@ -196,19 +197,19 @@ Comments
 
       bb = 2 * aa   ! this comment should be before the line.
 
-* Never use multiline suffix comments as an indenting editor would mess up
-  the indentation of subsequent lines::
+* Never use multi-line suffix comments, as an indenting editor would mess up the
+  indentation of subsequent lines::
     
       bb = 2 * aa  ! This comment goes over multiple lines, therefore, it
                    ! should stay ALWAYS before the code snippet and NOT HERE.
 
-* Comment eventual workarounds with special comments, which include the compiler
-  name and its version number for which the workaround had to be made. Use
-  always the following pattern, so that searching for workarounds which can be
-  possibly removed is easy::
+* Specifically comment any workarounds, include the compiler name and the
+  version number for which the workaround had to be made. Always use the
+  following pattern, so that searching for workarounds which can be possibly
+  removed is easy::
 
       ! Workaround: gfortran 4.8
-      ! Finalization not working, we have to deallocate explicitely
+      ! Finalisation not working, we have to deallocate explicitly
       deallocate(myPointer)
       
       
@@ -220,10 +221,9 @@ Comments
         : 
       end do
 
-* If you need a comment for a longer block of code, consider to package that
-  block of code into a properly named function instead. (If the additional
-  function call would be performance critical, write an internal procedure for
-  it.)::
+* If you need a comment for a longer block of code, consider instead packaging
+  that block of code into a properly named function (if the additional function
+  call would be performance critical, write it as an internal procedure)::
 
       somePreviousStatement
       ind = getFirstNonZero(array)
