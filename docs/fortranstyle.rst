@@ -1,8 +1,8 @@
 *******************
-FORTRAN style guide
+Fortran style guide
 *******************
 
-The main principle when contributing code to FORTRAN projects should be
+The main principle when contributing code to Fortran projects should be
 readability. If your code can not be easily read and understood by others it
 will be hard to maintain and extend. It should also fit well with the existing
 parts of the code (in style as well as in its programming paradigms) maintaining
