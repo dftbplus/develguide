@@ -7,7 +7,7 @@ Git workflow
 General workflow
 ================
 
-For developing DFTB+, we use the workflow as described by Vincent Driessen in `A
+For developing DFTB+ we use the workflow described by Vincent Driessen in `A
 successful Git branching model
 <http://nvie.com/posts/a-successful-git-branching-model/>`_. The main points for
 most developers are:
@@ -17,16 +17,16 @@ most developers are:
 * Development happens on the `develop` branch, which always contains a clean
   release-ready code.
 
-* Every feature is developed in a separate feature branch. If the feature is
-  mature enough (it works correclty, its code is clean, it is well documented,
-  automatic tests has been created etc.), the feature branch will be merged to
-  the `develop` branch.
+* Every feature is developed in a separate feature branch derived from the
+  `develop` branch. If the feature is mature enough (it works correctly, its
+  code is clean, it is well documented, automatic tests have been created etc.),
+  the feature branch will be merged into the `develop` branch.
 
 The main official public (upstream) repository only contains two branches: the
 branches `master` and `develop`. Some short living intermediate branches
-(e.g. `release` and `hotfix`) may appear time to time, but they are special
-purpose branches created by the administrators/release managers and are not
-meant being used for feature develoment.
+(e.g. `release` and `hotfix`) may appear from time to time, but these are
+special purpose branches created by the administrators/release managers and are
+not being used for feature development.
 
 In order to add a feature, you have to do the following steps:
 
@@ -36,29 +36,29 @@ In order to add a feature, you have to do the following steps:
 
 #. Derive a feature branch from the `develop` branch of your forked project.
 
-#. Develop your feature in your feature branch.
+#. Develop your feature in your new branch.
 
-#. Regularly update your `develop` branch from the upstream `develop` branch to
-   make sure, your `develop` branch remains identical to the upstream one.
+#. Regularly update your `develop` branch from the upstream repository to make
+   sure that your `develop` branch remains synchronised to the upstream one.
 
-#. Regularly merge your `develop` branch into your feature branch, to make sure,
-   your feature branch is based on the most recent state of the upstream
+#. Regularly merge your `develop` branch into your feature branch. This ensures
+   that your feature branch is based on the most recent state of the upstream
    `develop` branch.
 
-#. When the feature implementation has finished, do repeat 4 and 5 once
+#. When the feature implementation has finished, do repeat steps 4 and 5 once
    more. Then issue a *pull request* of your feature branch into the `develop`
    branch of the upstream repository.
 
-#. Wait for feedback from the core developers, and apply possible improvments
-   you were asked for (to the feature branch). Also make sure to keep your
-   feature branch still up to date with the upstream `develop` by executing
-   steps 4 and 5.
+#. Wait for feedback from the core developers and then apply any suggestions or
+   required changes to your feature branch. Also make sure to keep your feature
+   branch up to date with the upstream `develop` on the main repository by
+   executing steps 4 and 5.
 
-#. When you obtain the notification, that your feature branch had been merged to
-   the upstream `develop` branch, delete your feature branch in your personal
-   repository. 
+#. When you obtain the notification that your feature branch has been merged to
+   the upstream `develop` branch, delete the feature branch in your personal
+   repository.
 
-#. In order to develop the next feature, execute the steps above again,
+#. In order to develop the next feature, execute the above steps again,
    *starting from step 2*.
 
 
@@ -70,12 +70,12 @@ the repository name `dftbplus` with the actual repository name.
 Fork the project
 ================
 
-Fork the respository
---------------------
+Fork the repository
+-------------------
 
-#. Fork the desired repository (e.g. `dftbplus`) owned by the user
-   `dftbplus` to *your personal* GitHub account. You find the `Fork` button in
-   the upper right corner on the project page.
+#. Fork the desired repository (e.g. `dftbplus`) owned by the user `dftbplus` to
+   *your personal* GitHub account. You will find the `Fork` button in the upper
+   right corner on the project page.
 
 #. Go to the settings menu of your personal fork and make sure that in the
    branches sub-menu the default branch is set to `develop` (which should be
@@ -92,13 +92,13 @@ Fork the respository
        cd dftbplus
        git branch
 
-   Only `develop` should pop up in the list of branches, but not `master`.
+   Only `develop` should appear in the list of branches and not `master`.
 
 #. Set up a mirror of the upstream reference repository::
 
        git remote add upstream git@github.com:dftbplus/dftbplus.git
 
-#. Fetch the upstream remote::
+#. Fetch the upstream remote repository::
       
        git fetch upstream
 
@@ -149,26 +149,26 @@ copy our special `git commit hook
 Now, you are ready to make your contribution to DFTB+.
 
 
-Develop your feature
-====================
+Developing your feature
+=======================
 
-If you have already forked the project for an other feature branch before,
-execute Step 1 in section `Staying up to date with the upstream develop branch`_
-before carrying out the following steps.  This way you make sure that your
-`develop` branch is synchronized with the upstream one. Otherwise, you can start
-directly with the steps below:
+If you have already forked the project for another earlier feature branch,
+execute Step 1 in the section `Staying up to date with the upstream develop
+branch`_ before carrying out the following steps below.  In this way you make
+sure that your `develop` branch is synchronised with the upstream
+one. Otherwise, you can start directly with the steps below:
 
 #. Create you own feature branch::
 
        git checkout -b some-new-feature
 
-   You always have to create an extra branch derived from `develop`, if you
-   develop a new feature.  You should never work on the develop branch directly,
-   or merge anything from your feature branches into it. Its only purpose is to
-   mirror the status of the upstream develop branch.
+   To develop a new feature you should always create a new branch derived from
+   `develop`.  You should never work on the develop branch directly, or merge
+   anything from your feature branches onto it. Its only purpose is to mirror
+   the status of the upstream develop branch.
 
-#. Develop your new feature in your local branch. Make check-ins, whenever
-   it seems to be logical and useful::
+#. Develop your new feature in your local branch. Make check-ins whenever it
+   seems to be logical and useful::
 
        git commit -m "Some new thing added...."
 
@@ -189,11 +189,11 @@ directly with the steps below:
    changes on this branch to GitHub.
 
 
-Stay up to date with the upstream develop branch
-================================================
+Staying up to date with the upstream develop branch
+===================================================
 
-Time to time you should make sure, that your `develop` branch is up to date with
-the upstream `develop` branch.
+From time to time you should make sure that your `develop` branch is up to date
+with the upstream `develop` branch.
 
 #. Pull the recent changes from the upstream develop branch into your local
    develop branch::
@@ -207,17 +207,17 @@ the upstream `develop` branch.
 
    Note: if the ``git pull --ff-only ...`` command fails, you probably have
    messed up your personal develop branch (despite all the warnings above), and
-   it can not made to be identical to the upstream one any more. In that case,
-   you can revert it via hard reset::
+   it can no longer be made to match the upstream one. In that case, you can
+   revert it via a hard reset::
 
        git reset --hard upstream/develop
 
-   You will then eventually have to derive a new feature branch from the
-   resetted `develop` branch, and add your changes on `some-new-feature`
-   manually to it. So better try not to polute your `develop` branch.
+   You will then have to derive a new feature branch from the reset `develop`
+   branch and then add your changes manually to this new branch. So its better
+   to not change your personal `develop` branch.
 
-#. After pulling the recent changes from the upstream `develop` branch, change
-   back to your feature branch, to make sure you do not commit anything into
+#. After pulling the recent changes back from the upstream `develop` branch,
+   change back to your feature branch to ensure you do not commit anything into
    `develop`::
 
        git checkout some-new-feature
@@ -236,41 +236,41 @@ the upstream `develop` branch.
 Merge the changes back into the upstream repository
 ===================================================
 
-When you have finished the implementaiton of your feature and you would like to
-get it merged into the upstream `develop` branch, issue a pull request.
+When you have finished implementing your feature and you would like to get it
+merged into the upstream `develop` branch, issue a pull request.
 
-#. First, make sure, that you have pulled the latest changes of the upstream
-   develop branch to your local `develop` branch, and that you have merged those
+#. Firstly make sure that you have pulled the latest changes of the upstream
+   develop branch to your local `develop` branch and that you have merged those
    changes into your feature branch. (Follow the steps in the previous section.)
 
-#. If not done yet, upload your feature branch to your personal repository
-   on GitHub::
+#. If not done yet, push your feature branch back to your personal repository on
+   GitHub::
 
        git push origin some-new-feature
 
-   If your repository was set to private, make sure, that at least the  core
+   If your repository was set to private make sure that at least the core DFTB+
    developers have read access to it.
 
-#. Issue a pull request on GitHub for your some-new-feature branch. (Look for
-   the upwards arrow in the left menu.) Make sure that the target of your pull
+#. Issue a pull request on GitHub for your `some-new-feature` branch (Look for
+   the upwards arrow in the left menu). Make sure that the target of your pull
    request is the `develop` branch of the upstream repository
    (`dftbplus/dftbplus`).
 
-#. Wait for the comments of other the developers, fix things you are asked for,
-   and push the changes to your feature branch on GitHub. Also, keep your
-   `develop` and feature branch up to date with the upstream changes.
+#. Wait for the comments of other developers, apply any fixes you are asked to
+   make, and push the changes to your feature branch on GitHub. Also, keep your
+   `develop` and feature branch up to date with any upstream changes.
 
-#. Once the discussion on your pull request is done, one of the developers with
-   write permission to the upstream repository will merge your branch into the
-   upstream `develop`-branch. Once this has happened, you should see your
+#. Once the discussion on your pull request is finished, one of the developers
+   with write permission to the upstream repository will merge your branch into
+   the upstream `develop` branch. Once this has happened, you should see your
    changes showing up there.
 
 
 Delete your feature branch
 ==========================
 
-If your feature had been merged into the upstream code, you should delete your
-feature branch locally and on GitHub as well:
+If your feature has been merged into the upstream code you should then delete
+your feature branch, both locally and on GitHub as well:
 
 #. In order to delete the feature branch locally, change to the develop branch
    (or any branch other than your feature branch) and delete your feature
@@ -279,7 +279,7 @@ feature branch locally and on GitHub as well:
        git checkout develop
        git branch -d some-new-feature
 
-#. In order to delete the feature branch on GitHub as well, use the command::
+#. In order to delete the feature branch on GitHub as well use the command::
 
        git push origin --delete some-new-feature
 
