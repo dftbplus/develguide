@@ -160,8 +160,8 @@ also suggest setting the permission to be user writable only ::
 
 Any new local repositories will use any specified settings from this directory,
 unless overridden by a local `.git/` directory within the repository
-itself. Existing repositories need to be reinitialised to use the
-init.templatedir ::
+itself. Existing repositories need to be reinitialised in their top directory to
+use the init.templatedir ::
 
   git init
 
