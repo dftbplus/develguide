@@ -146,9 +146,28 @@ copy our special `git commit hook
 `.git/hooks/commit-msg` into your repository and make it executable (``chmod +x
 .git/hooks/commit-msg``).
 
-Now, you are ready to make your contribution to DFTB+.
+You may wish to make this a global hook for all of your git repositories by
+adding it to an init.templatedir directory. This can be added for `all`
+repositories with ::
+  
+  git config --global init.templatedir '~/.git-templates'
+  mkdir -p ~/.git-templates/hooks
 
+The commit-msg file can then be placed in `.git/hooks/commit-msg`. We would then
+also suggest setting the permission to be user writable only ::
+  
+  chmod -R 700 ~/.git-templates
 
+Any new local repositories will use any specified settings from this directory,
+unless overridden by a local `.git/` directory within the repository
+itself. Existing repositories need to be reinitialised in their top directory to
+use the init.templatedir ::
+
+  git init
+
+Again, any local `.git/` directory overrides settings in `~/.git-templates`
+
+  
 Developing your feature
 =======================
 
