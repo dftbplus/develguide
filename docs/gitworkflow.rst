@@ -153,8 +153,8 @@ repositories with ::
   git config --global init.templatedir '~/.git-templates'
   mkdir -p ~/.git-templates/hooks
 
-The commit-msg file can then be placed in `.git/hooks/commit-msg`. We would then
-also suggest setting the permission to be user writable only ::
+The commit-msg file can then be placed in `~/.git-templates/hooks/commit-msg`. 
+We would then also suggest setting the permission to be user writable only ::
   
   chmod -R 700 ~/.git-templates
 
