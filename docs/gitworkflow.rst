@@ -7,7 +7,7 @@ Git workflow
 General workflow
 ================
 
-For developing DFTB+ we use a feature-branching workflow described for example
+For developing DFTB+ we use a feature-branching workflow described, for example,
 in `Understanding the GitHub Flow
 <https://guides.github.com/introduction/flow/>`_. The main points for most
 developers are:
@@ -15,13 +15,13 @@ developers are:
 * Development happens on the `master` branch, which always contains a clean
   release-ready code.
 
-* Every feature is developed in a separate feature branch derived from the
-  `master` branch. If the feature is mature enough (it works correctly, its code
-  is clean, it is well documented, thoroughly tested, etc.), the feature branch
-  is merged into the `master` branch.
+* Every feature is developed in a separate feature branch, which is derived from
+  the `master` branch. If the feature is mature enough (it works correctly, its
+  code is clean, it is well documented, thoroughly tested, etc.), the feature
+  branch is merged into the `master` branch.
 
 The main official public (upstream) repository only contains two branches: the
-branches `master` and `release`, latter containing the tagged official releases.
+branches `master` and `release`, latter containing tagged official releases.
 Some short living intermediate branches (e.g. `stage` and `hotfix`) may appear
 from time to time, but these are special purpose branches created by the
 administrators/release managers and are not being used for feature development.
@@ -31,7 +31,7 @@ In order to add a feature, you have to do the following steps:
 #. Fork the official (upstream) repository and set up your own repository. (This
    step you have to do only once.)
 
-#. Make sure, your `master` branch is synchronised to upstream `master`.
+#. Make sure, your `master` branch is synchronised to the upstream `master`.
 
 #. Derive a feature branch from the `master` branch of your forked project.
 
@@ -41,7 +41,7 @@ In order to add a feature, you have to do the following steps:
    into the most recent version of the code. (The code may have evolved while
    you were implementing your feature.)
 
-#. Issue a *pull request* of your feature branch.
+#. Issue a *pull request* for your feature branch.
 
 #. Wait for feedback from the core developers and then apply any suggestions or
    required changes to your feature branch.
@@ -84,7 +84,7 @@ Set up your own repository
 Set up your identity
 ....................
 
-When you contribute to our project, it is important that the author information
+When you contribute to our project it is important that the author information
 of your commits contain your full name and a valid (preferably your official)
 email address. Set up those for your repository (or globally by adding the
 ``--global`` option) by ::
@@ -97,11 +97,11 @@ Add check on commit message formatting
 ......................................
 
 We use the commonly adopted git commit message format containing a short
-imperative subject line and optional detailed description separated by an empty
-line (see for example `How to Write a Git Commit Message
+imperative subject line and an optional detailed description which is separated
+by an empty line (see for example `How to Write a Git Commit Message
 <https://chris.beams.io/posts/git-commit/>`_). Using a simple commit message
-hook, git can check that your commit messages align with this format. Please
-copy our special `git commit hook
+hook, git can check that your commit messages follow this format. Please copy
+our special `git commit hook
 <https://gist.github.com/aradi/a651ee97cc6bd09acb237794a05eaa7f>`_ as
 `.git/hooks/commit-msg` into your repository and make it executable (``chmod +x
 .git/hooks/commit-msg``).
@@ -118,10 +118,10 @@ We would then also suggest setting the permission to be user writable only ::
   
   chmod -R 700 ~/.git-templates
 
-Any new local repositories will use any specified settings from this directory,
-unless overridden by a local `.git/` directory within the repository
-itself. Existing repositories need to be reinitialised in their top directory to
-use the init.templatedir ::
+Any new local repositories will settings specified from this directory, unless
+overridden by a local `.git/` directory within the repository itself. Existing
+repositories need to be reinitialised in their top directory to use the
+init.templatedir ::
 
   git init
 
@@ -147,17 +147,16 @@ merged into the upstream repository:
        git push origin master
 
    **Note:** if the ``git pull --ff-only upstream master`` command fails, you
-   probably polluted your personal master branch, and it can no longer be made
-   to exactly match the upstream one. In that case, you may revert it via a hard
-   reset::
+   have probably polluted your personal master branch, and it can no longer be
+   made to exactly match the upstream one. In that case, you may revert it via a
+   hard reset::
 
        git reset --hard upstream/master
 
    You will then have to derive a new feature branch from the reset `master`
    branch and then add your changes manually to this new feature
-   branch. Therefore, to avoid this extra work, make sure not to change your
-   personal `master` branch ever, apart of synchronising it with upstream
-   `ṁaster`.
+   branch. Therefore, to avoid this extra work, make sure you never change your
+   personal `master`, apart from synchronising it with the upstream `master`.
 
   
 Developing your feature
@@ -176,10 +175,10 @@ Developing your feature
    `master`.  You should never work on the `master` branch directly, or merge
    anything from your feature branches onto it. Its only purpose is to mirror
    the status of the upstream `master` branch. The feature branch name should be
-   short and descriptive for the feature your are going to implement.
+   short and descriptive for the feature you are going to implement.
 
 #. Develop your new feature in your local branch. Make check-ins whenever it
-   seems to be logical and useful::
+   seems to be logically useful::
 
        git commit -m "Some new thing added...."
 
@@ -206,21 +205,20 @@ Merge the changes back into the upstream repository
 
 When you have finished implementing your feature, it should be merged back into
 the upstream `master` as soon as possible, in order to minimise the number of
-possible conflicts. (Generally, you should try to implement features in the
+possible conflicts. Generally, you should try to implement features in the
 smallest meaningful units, so that they can be quickly merged into the upstream
-repository.)
+repository.
 
 First, make sure, that your feature integrates well into the most recent code
-version. (The upstream code may have evolved while you were implementing your
-feature.)
+version. Be aware that the upstream code may have evolved while you were
+implementing your feature.
 
 #. First synchronise your `master` branch to upstream `master` as written in the
    section `Synchronising to the upstream master branch`_.
 
-#. Integrate the changes from `master` which happened during your feature
-   development into your feature branch. Depending on how complex your feature
-   branch is (especially how many commits it contains), you should follow two
-   different strategies:
+#. Integrate any changes that appeared on `master` during your feature
+   development. Depending on how complex your feature branch is (especially how
+   many commits it contains), you should follow two different strategies:
 
    * For simple feature branches with only one or two commits: Rebase your
      feature branch on `master`:
