@@ -57,9 +57,10 @@ modifications.
 
       logical :: hasComponent
 
-* **Constants** (parameters) use **UPPER_CASE_WITH_UNDERSCORE**::
+* **Constants** (parameters) use the **lowerCamelCase** convention similar to
+  variables ::
     
-      integer, parameter :: MAX_ARRAY_SIZE = 100
+      integer, parameter :: maxArraySize = 100
 
   with the exception of the constants used to define the kind parameter for
   intrinsic types, which should be all lowercase (and short)::
@@ -77,8 +78,17 @@ modifications.
 
 * **Type** (object) names are written **UpperCamelCase**::
 
-      type :: RealList
-      type(RealList) :: myList
+      type :: TRealList
+      type(TRealList) :: myList
+
+  All type names should be prefixed with a capital 'T', in order to ease the
+  distinction between type names and variable names::
+
+      type :: TBroydenMixer
+      :
+      end type TBroydenMixer
+      :
+      type(TBroydenMixer) :: broydenMixer
       
 
 * **Module** names follow **lower_case_with_underscore** convention::
@@ -89,6 +99,14 @@ modifications.
   typically found at the path `dftb/common/accuracy.f90`. The individual
   component names (``dftb``, ``common``, ``accuracy``) may not contain any
   underscores and must be shorter than 15 characters.
+
+
+* **Preprocessor** variables and macros follow **UPPER_CASE_WITH_UNDERSCORE**
+  convention::
+
+    #:if WITH_MPI
+      withMpi = ${FORTRAN_LOGICAL(WITH_MPI)}$
+    #:endif
 
 
 White spaces
@@ -114,7 +132,7 @@ white spaces in following situations:
   lists::
 
       real(wp), allocatable :: array(:)
-      type, extends(BaseType) :: DerivedType
+      type, extends(TBaseType) :: TDerivedType
       subroutine myRoutine(par1, par2)
       call myRoutine(val1, val2)
       print *, 'My value:', val
