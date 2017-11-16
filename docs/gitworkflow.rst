@@ -12,8 +12,8 @@ in `Understanding the GitHub Flow
 <https://guides.github.com/introduction/flow/>`_. The main points for most
 developers are:
 
-* Development happens on the `master` branch, which always contains a clean
-  release-ready code.
+* Development happens based on the `master` branch, which always contains a
+  clean release-ready code.
 
 * Every feature is developed in a separate feature branch, which is derived from
   the `master` branch. If the feature is mature enough (it works correctly, its
@@ -113,7 +113,7 @@ repositories with ::
   git config --global init.templatedir '~/.git-templates'
   mkdir -p ~/.git-templates/hooks
 
-The commit-msg file can then be placed in `~/.git-templates/hooks/commit-msg`. 
+The commit-msg file can then be placed in `~/.git-templates/hooks/commit-msg`.
 We would then also suggest setting the permission to be user writable only ::
   
   chmod -R 700 ~/.git-templates
@@ -182,6 +182,9 @@ Developing your feature
 
        git commit -m "Some new thing added...."
 
+#. Consider adding regression tests for your feature in the test directory and
+   also adding to the documentation for the code.
+
 #. If you want to share your development with others (or make a backup of your
    repository in the cloud), upload the current status of your local feature
    branch by pushing it to your personal repository::
@@ -209,16 +212,16 @@ possible conflicts. Generally, you should try to implement features in the
 smallest meaningful units, so that they can be quickly merged into the upstream
 repository.
 
-First, make sure, that your feature integrates well into the most recent code
-version. Be aware that the upstream code may have evolved while you were
+First, make sure, that your feature integrates well into the most recent main
+code version. Be aware that the upstream code may have evolved while you were
 implementing your feature.
 
-#. First synchronise your `master` branch to upstream `master` as written in the
-   section `Synchronising to the upstream master branch`_.
+#. First synchronise your `master` branch to the upstream `master`, as written
+   in the section `Synchronising to the upstream master branch`_.
 
 #. Integrate any changes that appeared on `master` during your feature
    development. Depending on how complex your feature branch is (especially how
-   many commits it contains), you should follow two different strategies:
+   many commits it contains), you should follow one of two different strategies:
 
    * For simple feature branches with only one or two commits: Rebase your
      feature branch on `master`:
@@ -251,7 +254,8 @@ implementing your feature.
           
         This will result in an extra merge commit.
 
-#. Test whether your updated feature branch still works as expected.
+#. Test whether your updated feature branch still works as expected (having
+   regression tests for your feature can help here).
 
 #. Push the latest status of your feature branch to your personal repository on
    GitHub::

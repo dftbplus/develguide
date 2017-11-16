@@ -81,7 +81,7 @@ modifications.
       type :: TRealList
       type(TRealList) :: myList
 
-  All type names should be prefixed with a capital 'T', in order to ease the
+  All type names should be prefixed with a capital 'T', in order to clarify the
   distinction between type names and variable names::
 
       type :: TBroydenMixer
@@ -197,6 +197,11 @@ changed.
 
 Comments
 ========
+
+* **Module**, **Subroutine** and **function** comments should be consistent with
+  `doxygen <http://doxygen.org/>`_ / `FORD
+  <https://github.com/cmacmackin/ford>`_ literate comments for publicly visible
+  interfaces and variables.
 
 * Comments are indented to the same position as the code they document::
 

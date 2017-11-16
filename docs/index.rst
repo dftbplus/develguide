@@ -7,4 +7,5 @@ DFTB+ Developers Guide
 
    gitworkflow.rst
    fortranstyle.rst
+   python.rst
    licence.rst
