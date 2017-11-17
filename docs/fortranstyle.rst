@@ -44,7 +44,35 @@ Line length and indentation
   include one white space character after the opening ampersand in the
   continuation line.
 
+* **Single line preprocessor directives** are indented as normal code::
 
+      @:ASSERT(someCondition)
+      call someRoutine(...)
+
+* **Preprocessor block directives** (directives with starting and ending
+  constructs) are outdented by **2** characters with respect of the code they
+  enclose. The enclosed code must be aligned as if the preprocessor directives
+  were not present::
+
+    :
+      call doSomething()
+    #:if WITH_SCALAPACK
+      call someRoutineScalapackVersion(...)
+    #:else
+      call someRoutineSerialVersion(...)
+    #:endif
+
+
+    do iKS = 1, nKS
+    #:if WITH_SCALAPACK
+      call someRoutineScalapackVersion(iKS, ...)
+    #:else
+      call someRoutineSerialVersion(iKS, ...)
+    #:endif
+    end do
+
+    
+    
 Naming
 ======
 
