@@ -299,3 +299,28 @@ This closes the development cycle of your feature and opens a new one for the
 next one you are going to develop. You can then again create a new branch for
 the new feature and develop your next extension starting with the steps
 described in section `Synchronising to the upstream master branch`_.
+
+A note about Submodules
+=======================
+
+The DFTB+ program uses several libraries from elsewhere in the project. Both
+`mpifx <https://github.com/dftbplus/mpifx>`_ and `scalapackfx
+<https://github.com/dftbplus/scalapackfx>`_ are required to build the `main`
+branch code with MPI parallelism enabled. These libraries are included within
+the repository via the git `submodule` mechanism. However, since the code should
+be available for users without accounts on github.com, these are included as web
+links instead of ssh references.
+
+You can globally configure git to substitute svn links for the https references
+by issuing the command ::
+
+  git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+
+When checking out the code, you can pull the submodules with ::
+
+  git submodule update --init --recursive
+
+But if you need to modify these submodules, you should fork their respective
+projects. Then in your DFTB+ repository, change the locations that both the
+`.gitmodules` file and the submodule's entry in the `.git/config` point to so
+they match your fork. Finally re-initialise and update the submodules.
