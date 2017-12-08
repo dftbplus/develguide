@@ -311,10 +311,13 @@ the repository via the git `submodule` mechanism. However, since the code should
 be available for users without accounts on github.com, these are included as web
 links instead of ssh references.
 
-You can globally configure git to substitute svn links for the https references
+You can globally configure git to substitute ssh links for the https references
 by issuing the command ::
 
   git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+
+You may leave away the ``--global`` option if you only want to set this up for
+the dftbplus repository.
 
 When checking out the code, you can pull the submodules with ::
 
