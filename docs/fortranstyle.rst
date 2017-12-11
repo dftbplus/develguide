@@ -54,14 +54,12 @@ Line length and indentation
   enclose. The enclosed code must be aligned as if the preprocessor directives
   were not present::
 
-    :
       call doSomething()
     #:if WITH_SCALAPACK
       call someRoutineScalapackVersion(...)
     #:else
       call someRoutineSerialVersion(...)
     #:endif
-
 
     do iKS = 1, nKS
     #:if WITH_SCALAPACK
