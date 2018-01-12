@@ -316,8 +316,9 @@ by issuing the command ::
 
   git config --global url.ssh://git@github.com/.insteadOf https://github.com/
 
-You may leave away the ``--global`` option if you only want to set this up for
-the dftbplus repository.
+You can alternatively set up this substitution for only your local `dftbplus`
+repository. You should run this command in the directory containing your copy
+and leave out the ``--global`` option.
 
 When checking out the code, you can pull the submodules with ::
 
