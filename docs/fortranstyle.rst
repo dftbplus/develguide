@@ -295,3 +295,24 @@ Comments
       end if
       
       someStatementAfter
+
+Allocation status
+=================
+
+At several places, the allocation status of a variable is used to signal choices
+about logical flow in the code::
+  
+  !> SCC module internal variables
+  type(TScc), allocatable :: sccCalc
+  .
+  .
+  .
+  if (allocated(sccCalc)) then
+
+  end if
+
+This is to be preferred to the use of additional logical variables if possible.
+
+Part of the reason for this choice is that from Fortran 2008 onwards, optional
+arguments to subroutines and functions are treated as not-present if not
+allocated.
