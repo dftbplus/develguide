@@ -15,6 +15,7 @@ follow the conventions being used.
 If you use Emacs as editor, consider adding `appropriate customisation settings
 <https://gist.github.com/aradi/68a4ff8430a735de13f13393213f0ea8>`_ to your
 config file in order to automatically enforce some of the conventions below.
+You may also wish to use `ws-butler <https://github.com/lewang/ws-butler>`_.
 
 
 Line length and indentation
