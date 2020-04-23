@@ -1,8 +1,8 @@
 .. highlight:: none
 
-************
-Git workflow
-************
+*****************************
+Git workflow for contributors
+*****************************
 
 General workflow
 ================
@@ -20,11 +20,12 @@ developers are:
   code is clean, it is well documented, thoroughly tested, etc.), the feature
   branch is merged into the `master` branch.
 
-The main official public (upstream) repository only contains two branches: the
-branches `master` and `release`, latter containing tagged official releases.
-Some short living intermediate branches (e.g. `stage` and `hotfix`) may appear
-from time to time, but these are special purpose branches created by the
-administrators/release managers and are not being used for feature development.
+* In order to ease integration, feature branches should be **short living** and
+  pull requests should only contain a **reasonably small amount** of
+  changes. Try to chop your implementation in small self containing changes and
+  issue those in separate consecutive pull requests. (No one likes or is
+  efficiently able to review a code change containing thousands of lines.)
+
 
 In order to add a feature, you have to do the following steps:
 
@@ -43,7 +44,7 @@ In order to add a feature, you have to do the following steps:
 
 #. Issue a *pull request* for your feature branch.
 
-#. Wait for feedback from the core developers and then apply any suggestions or
+#. Wait for feedback from the maintainers and then apply any suggestions or
    required changes to your feature branch.
 
 #. When you obtain the notification that your feature branch has been merged to
@@ -56,6 +57,7 @@ In order to add a feature, you have to do the following steps:
 Below you find a detailed description of each step, using the DFTB+ main
 repository as an example. If you work on an other DFTB+ related project, replace
 the repository name `dftbplus` with the actual repository name.
+
 
 
 Fork the project
@@ -223,8 +225,9 @@ implementing your feature.
    development. Depending on how complex your feature branch is (especially how
    many commits it contains), you should follow one of two different strategies:
 
-   * For simple feature branches with only one or two commits: Rebase your
-     feature branch on `master`:
+   * Rebasing (for experienced git users only!): For simple feature branches
+     with dominantly non-conflicting changes, you could rebase your feature
+     branch on `master`:
 
      #. Check out your feature branch::
           
@@ -241,8 +244,8 @@ implementing your feature.
      simple. However, you should never rebase any branches, which you have
      already shared with others.
 
-   * For more complex feature branches with multiple commits: Merge the `master`
-     branch into your feature branch:
+   * Merging: For complex feature branches with multiple commits and expected
+     conflicts, merge the `master` branch into your feature branch:
 
      #. Check out your feature branch::
 
