@@ -6,6 +6,7 @@ DFTB+ Developers Guide
    :maxdepth: 2
 
    gitworkflow.rst
+   maintainerflow.rst
    fortranstyle.rst
    python.rst
    recipes.rst
