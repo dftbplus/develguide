@@ -22,7 +22,7 @@ developers are:
 
 * In order to ease integration, feature branches should be **short living** and
   pull requests should only contain a **reasonably small amount** of
-  changes. Try to chop your implementation in small self containing changes and
+  changes. Try to chop your implementation into small self containing changes and
   issue those in separate consecutive pull requests. (No one likes or is
   efficiently able to review a code change containing thousands of lines.)
 
