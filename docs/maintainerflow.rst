@@ -89,7 +89,7 @@ Following strategy should be applied when merging the pull request:
 Packaging releases
 ==================
 
-A DFTB+ release if created by an annotated tag in the git repository either using the online interface provided by GitHub or the command line with
+A DFTB+ release is created by an annotated tag in the git repository either using the online interface provided by GitHub or the command line with
 
 .. code-block:: none
 
@@ -143,7 +143,62 @@ If you have not yet rerendered the feedstock, add the suggested line to request 
 After successfully creating the pull request, wait for the friendly conda-forge webservices to comment into your pull request, usually the linter and, if you requested to rerender, also the webservice bot will comment on your pull request.
 Now, you can check the continuous integration runs at Azure pipelines, Travis CI and/or Drone CI.
 For DFTB+ this can take several minutes to build all the possible targets.
-Everything should pass before you finally create the release tag and insert the correct release URL and SHA256 hash, adding the automerge label is also a possibility to let the conda-forge webservice handle the feedstock update for you.
+Everything should pass before you finally create the release tag and insert the correct release URL and SHA256 hash
+Adding the automerge label is also a possibility to let the conda-forge webservice handle the feedstock update for you after the CI is passing.
 In case the build fails inspect the logs and open an issue at the upstream repository, than go fix the issue and repeat from the beginning.
 
 Note, some feedstocks are splitted into several packages, like the Python API of DFTB+ is separated from the main DFTB+ package, in this case you have to update several feedstocks at once.
+
+
+Setting up a local conda-forge toolchain
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To bootstrap a new conda environment tailored for conda-forge start by installing miniforge with the correct installer from the `latest miniforge release <https://github.com/conda-forge/miniforge/releases/latest>`_.
+After installing conda setup a conda-build toolchain by installing
+
+.. code-block:: none
+
+   > conda install conda-build conda-smithy conda-forge-pinning
+
+Enter the feedstock you want to build and start conda-build with
+
+.. code-block:: none
+
+   > conda build recipe
+
+After the build is finished successfully you can install the freshly build package (assuming you used the dftbplus-feedstock) in a new environment to test it
+
+.. code-block:: none
+
+   > conda install dftbplus --use-local -mn dftbplus
+   > conda activate dftbplus
+   > which dftb+
+   /home/<user>/miniforge3/envs/dftbplus/bin/dftb+
+
+Giving the complete spec as ``<name>=<version>=<hash>`` might be necessary to get the locally build package installed, you can find the complete specs in the conda-build output.
+
+
+Running conda build with docker
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Alternatively you can run the conda-forge builds in docker containers to avoid your local development environments to pollute the conda-build.
+Check the `conda-forge namespace at docker-hub <https://hub.docker.com/u/condaforge/>`_ for suitable containers, at the time of writing the ``comp7`` toolchain is in use for linux.
+Pull the container and create an instance, you might also want to enter it interactively to check the conda-build result afterwards:
+
+.. code-block:: none
+
+   > sudo docker pull conda-forge/linux-anvil-comp7
+   > sudo docker run -it --rm -v /path/to/feedstock/recipe:/home/conda/recipe conda-forge/linux-anvil-comp7
+   $ conda build recipe
+
+Run the last command inside the container.
+After the build is finished successfully you can install the freshly build package (assuming you used the dftbplus-feedstock) in the container and test it with
+
+.. code-block:: none
+
+   $ conda install dftbplus --use-local
+   $ which dftb+
+   /opt/conda/bin/dftb+
+
+Giving the complete spec as ``<name>=<version>=<hash>`` might be necessary to get the locally build package installed.
+Remember that you are probably missing most of your development toolchain inside the container, therefore, add directories with Slater–Koster files or input files to the container by mounting the additional directories with the ``-v`` option in advance.
