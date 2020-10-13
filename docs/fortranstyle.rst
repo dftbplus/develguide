@@ -116,6 +116,14 @@ modifications.
       end type TBroydenMixer
       :
       type(TBroydenMixer) :: broydenMixer
+
+
+* **Instances** referenced out of type-bound procedures are to be named `this`::
+
+      subroutine typeBoundProcedure(this, ...)
+        class(TType), intent(inout) :: this
+	:
+      end subroutine typeBoundProcedure
       
 
 * **Module** names follow **lower_case_with_underscore** convention::
