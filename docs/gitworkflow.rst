@@ -22,25 +22,30 @@ developers are:
 
 * In order to ease integration, feature branches should be **short living** and
   pull requests should only contain a **reasonably small amount** of
-  changes. Try to chop your implementation into small self containing changes and
-  issue those in separate consecutive pull requests. (No one likes or is
+  changes. Try to chop your implementation into small self containing changes
+  and issue those in separate consecutive pull requests. (No one likes or is
   efficiently able to review a code change containing thousands of lines.)
 
 
 In order to add a feature, you have to do the following steps:
 
-#. Fork the official (upstream) repository and set up your own repository. (This
-   step you have to do only once.)
+#. Fork the official (upstream) repository and clone it. (This step you have to
+   do only once.)
 
-#. Make sure, your `master` branch is synchronised to the upstream `master`.
+#. Synchronize your `master` branch (``origin/master``) to be identical to
+   upstream `master` (``upstream master``).
 
 #. Derive a feature branch from the `master` branch of your forked project.
 
-#. Develop your feature in your feature branch.
+#. Develop and finish your feature in your feature branch.
 
-#. When your feature implementation has finished, make sure, it integrates well
-   into the most recent version of the code. (The code may have evolved while
-   you were implementing your feature.)
+#. Squash intermediate irrelevant commits of your feature branch, so that your
+   branch only contains 1-2 relevant ones.
+
+#. Synchronize your `master` branch (``origin/master``) to be identical to
+   upstream `master` (``upstream master``).
+
+#. Rebase your feature branch on the update master branch.
 
 #. Issue a *pull request* for your feature branch.
 
@@ -157,8 +162,9 @@ merged into the upstream repository:
 
    You will then have to derive a new feature branch from the reset `master`
    branch and then add your changes manually to this new feature
-   branch. Therefore, to avoid this extra work, make sure you never change your
-   personal `master`, apart from synchronising it with the upstream `master`.
+   branch. Therefore, to avoid this extra work, make sure you **never change
+   your personal `master` branch**, apart from synchronising it with upstream
+   `master`.
 
   
 Developing your feature
@@ -187,87 +193,65 @@ Developing your feature
 #. Consider adding regression tests for your feature in the test directory and
    also adding to the documentation for the code.
 
-#. If you want to share your development with others (or make a backup of your
-   repository in the cloud), upload the current status of your local feature
-   branch by pushing it to your personal repository::
+#. When the feature had been finished, clean up your commit history and squash
+   the intermediate commits into a few (e.g. one or two) relevant ones. Issue ::
 
-       git push --set-upstream origin some-new-feature
+     git rebase -i HEAD~N
 
-   This also automatically connects the appropriate branch of your personal
-   repository on GitHub (`origin/some-new-feature`) with your local branch
-   (`some-new-feature`), so from now on, if you are on your `some-new-feature`
-   branch, a simple::
-
-       git push
-
-   command without any additional options will be enough to transfer your recent
-   changes on this branch to GitHub.
-
+   where ``N`` should be replaced by the number of commits you had committed
+   into your feature branch so far. (You can find out the number by looking at
+   the git logs.) An interactive editor will pop up and you can select which
+   commits should be squashed together.
 
 
 Merge the changes back into the upstream repository
 ===================================================
 
-When you have finished implementing your feature, it should be merged back into
-the upstream `master` as soon as possible, in order to minimise the number of
-possible conflicts. Generally, you should try to implement features in the
-smallest meaningful units, so that they can be quickly merged into the upstream
-repository.
-
 First, make sure, that your feature integrates well into the most recent main
 code version. Be aware that the upstream code may have evolved while you were
 implementing your feature.
 
-#. First synchronise your `master` branch to the upstream `master`, as written
-   in the section `Synchronising to the upstream master branch`_.
+#. Synchronise your `master` branch to the upstream `master`, as written in the
+   section `Synchronising to the upstream master branch`_.
 
 #. Integrate any changes that appeared on `master` during your feature
-   development. Depending on how complex your feature branch is (especially how
-   many commits it contains), you should follow one of two different strategies:
+   development.
 
-   * Rebasing (for experienced git users only!): For simple feature branches
-     with dominantly non-conflicting changes, you could rebase your feature
-     branch on `master`:
+   If your feature branch consists of one/two commits only (which should be the
+   case), rebase your branch on current `master`:
 
-     #. Check out your feature branch::
+   * Check out your feature branch::
+        
+       git checkout some-new-feature
+     
+   * Rebase it on `master`::
+         
+       git rebase master
+
+     Resolve any conflicts arrising during the rebase process.
+
+
+   If for whatever reasons your branch is complicated and contains many commits
+   or some merge commits (which should usually not be the case!), rebasing could
+   become difficult and problematic. In those cases, use a merge to update your
+   feature branch with the latest development on master:
+
+   * Check out your feature branch::
+
+       git checkout some-new-feature
+
+   * Merge the `master` branch into it::
+
+       git merge master
           
-          git checkout some-new-feature
-
-     #. Rebase it on `master`::
-          
-          git rebase master
-
-     Note, that the rebase method changes your git commits by reverting your
-     changes and reapplying them on top of the current code. As long as your
-     feature branch was not used (forked) by anybody else, it does not do any
-     harm and helps to keep the history of your feature branch linear and
-     simple. However, you should never rebase any branches, which you have
-     already shared with others.
-
-   * Merging: For complex feature branches with multiple commits and expected
-     conflicts, merge the `master` branch into your feature branch:
-
-     #. Check out your feature branch::
-
-          git checkout some-new-feature
-
-     #. Merge the `master` branch into it::
-
-          git merge master
-          
-        This will result in an extra merge commit.
+   This will result in an extra merge commit.
 
 #. Test whether your updated feature branch still works as expected (having
    regression tests for your feature can help here).
 
-#. Push the latest status of your feature branch to your personal repository on
-   GitHub::
+#. Publish your feature branch to your personal repository on GitHub::
 
        git push origin some-new-feature
-
-   If you used the rebase method above and have pushed your branch to GitHub at
-   least once already before the rebase, you may need the option ``-f`` to
-   change the git-history (previous git-commits) also on GitHub.
 
 #. Issue a pull request on GitHub for your `some-new-feature` branch (look for
    the upwards arrow in the left menu).
@@ -303,19 +287,49 @@ next one you are going to develop. You can then again create a new branch for
 the new feature and develop your next extension starting with the steps
 described in section `Synchronising to the upstream master branch`_.
 
-A note about Submodules
-=======================
 
-The DFTB+ program uses several libraries from elsewhere in the project. Both
-`mpifx <https://github.com/dftbplus/mpifx>`_ and `scalapackfx
-<https://github.com/dftbplus/scalapackfx>`_ are required to build the `main`
-branch code with MPI parallelism enabled. These libraries are included within
-the repository via the git `submodule` mechanism. However, since the code should
-be available for users without accounts on github.com, these are included as web
-links instead of ssh references.
+A few notes about Submodules
+============================
 
-You can globally configure git to substitute ssh links for the https references
-by issuing the command ::
+The DFTB+ program uses several libraries from elsewhere in the project. Some of
+those libraries (e.g. MpiFx, ScalapackFx, libNEGF, libMBD) are included within
+the repository via the git `submodule` mechanism.
+
+
+Checking out submodules
+-----------------------
+
+When checking out the code, you should pull the submodules with ::
+
+  git submodule update --init --recursive
+
+
+Updating submodules after changing to a branch
+----------------------------------------------
+
+If you change between branches, the target branch may contain a different
+version of the submodule as the previous one. This can be easily detected by
+issuing ::
+
+  git status
+
+after having changed the branch and looking for submodules with "modified"
+status. If any of the submodules is affected, you must align the submodules to
+the correct version (the one recorded for the branch you have changed to). This
+can be easily achieved for all submodules by issuing ::
+
+  git submodule update --recursive
+
+
+Referencing submodules
+----------------------
+
+Since the code should be available for users without accounts on github.com, all
+submodules are included as web (https) links instead of ssh references. 
+
+If you work on the integration of the submodules, you might find it useful to
+globally configure git to substitute ssh links for the https references by
+issuing the command ::
 
   git config --global url.ssh://git@github.com/.insteadOf https://github.com/
 
@@ -323,11 +337,30 @@ You can alternatively set up this substitution for only your local `dftbplus`
 repository. You should run this command in the directory containing your copy
 and leave out the ``--global`` option.
 
-When checking out the code, you can pull the submodules with ::
 
-  git submodule update --init --recursive
+Updating submodules
+-------------------
 
-But if you need to modify these submodules, you should fork their respective
-projects. Then in your DFTB+ repository, change the locations that both the
-`.gitmodules` file and the submodule's entry in the `.git/config` point to so
-they match your fork. Finally re-initialise and update the submodules.
+If you need to modify the submodules, you should fork their respective projects
+and work according their development workflow.
+
+If you want to update DFTB+ to use a new version of a given submodule, do the
+following steps:
+
+#. Go to the ``origin`` folder containing the submodule.
+
+#. Fetch the relevant branch from the upstream-project of the submodule.
+
+#. Check out the commit which should be used by DFTB+. (If this commit is on a
+   different branch as the one recorded in the `.gitmodules` file in the DFTB+
+   source folder, make sure to correct the branch name there.)
+
+#. Update the submodule commit ID's (recorded in `CMakeFiles.txt`) by
+   executing ::
+
+     ./utils/test/check_submodule_commits -u
+
+   from the DFTB+ source folder.
+
+#. Stage the submodule folder and the `CMakeFiles.txt` file for a commit and
+   commit your changes.
