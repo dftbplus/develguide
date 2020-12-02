@@ -39,13 +39,7 @@ In order to add a feature, you have to do the following steps:
 
 #. Develop and finish your feature in your feature branch.
 
-#. Squash intermediate irrelevant commits of your feature branch, so that your
-   branch only contains 1-2 relevant ones.
-
-#. Synchronize your `master` branch (``origin/master``) to be identical to
-   upstream `master` (``upstream master``).
-
-#. Rebase your feature branch on the update master branch.
+#. Integrate eventual changes form the upstream master branch.
 
 #. Issue a *pull request* for your feature branch.
 
@@ -162,8 +156,8 @@ merged into the upstream repository:
 
    You will then have to derive a new feature branch from the reset `master`
    branch and then add your changes manually to this new feature
-   branch. Therefore, to avoid this extra work, make sure you **never change
-   your personal `master` branch**, apart from synchronising it with upstream
+   branch. Therefore, to avoid this extra work, make sure you *never change
+   your personal `master` branch*, apart from synchronising it with upstream
    `master`.
 
   
@@ -177,7 +171,7 @@ Developing your feature
 
 #. Create you own feature branch::
 
-       git checkout -b some-new-feature
+     git checkout -b some-new-feature
 
    To develop a new feature you should always create a new branch derived from
    `master`.  You should never work on the `master` branch directly, or merge
@@ -185,23 +179,34 @@ Developing your feature
    the status of the upstream `master` branch. The feature branch name should be
    short and descriptive for the feature you are going to implement.
 
-#. Develop your new feature in your local branch. Make check-ins whenever it
-   seems to be logically useful::
+#. Develop your new feature in your local branch. Make sure to add regression
+   tests for your feature in the test directory and to update the documentation.
+   You can commit your changes by ::
 
-       git commit -m "Some new thing added...."
+       git commit -m "Add some new feature ..."
 
-#. Consider adding regression tests for your feature in the test directory and
-   also adding to the documentation for the code.
+   You may make multiple commits if your development naturally dividides into
+   multiple steps. But please note, that too many commits and especially commits
+   containing broken or non-functional code make finding bugs (e.g. by
+   git-bisection) a real pain. Therefore, make sure that your branch only
+   contains *essential commits with working code in each commit*.
 
-#. When the feature had been finished, clean up your commit history and squash
-   the intermediate commits into a few (e.g. one or two) relevant ones. Issue ::
+   In case, you wish to remove some intermediate commits in your feature branch,
+   you may use the interactive rebasing::
 
      git rebase -i HEAD~N
 
-   where ``N`` should be replaced by the number of commits you had committed
-   into your feature branch so far. (You can find out the number by looking at
-   the git logs.) An interactive editor will pop up and you can select which
-   commits should be squashed together.
+   where ``N`` should be replaced by the number of commits you would like to
+   rearrange/squash. As interactive rebasing changes the git-history, make sure
+   that
+
+   * you only squash commits of your feature branch, no earlier ones,
+
+   * you squash your commits before any other branches had been derived from
+     your feature branch and
+
+   * you squash your commits before any other branches had been merged into your
+     feature branch.
 
 
 Merge the changes back into the upstream repository
@@ -217,34 +222,33 @@ implementing your feature.
 #. Integrate any changes that appeared on `master` during your feature
    development.
 
-   If your feature branch consists of one/two commits only (which should be the
-   case), rebase your branch on current `master`:
+   * If your feature branch consists of one/two commits only, it does not
+     contain any merge-commits and no other branches had been derived of it (and
+     you are an experienced git user) you may rebase your branch on current
+     `master`:
 
-   * Check out your feature branch::
-        
-       git checkout some-new-feature
-     
-   * Rebase it on `master`::
-         
-       git rebase master
-
-     Resolve any conflicts arrising during the rebase process.
-
-
-   If for whatever reasons your branch is complicated and contains many commits
-   or some merge commits (which should usually not be the case!), rebasing could
-   become difficult and problematic. In those cases, use a merge to update your
-   feature branch with the latest development on master:
-
-   * Check out your feature branch::
-
-       git checkout some-new-feature
-
-   * Merge the `master` branch into it::
-
-       git merge master
+     - Check out your feature branch::
           
-   This will result in an extra merge commit.
+         git checkout some-new-feature
+       
+     - Rebase it on `master`::
+           
+         git rebase master
+     
+       Resolve any conflicts arrising during the rebase process.
+
+   * Othwerise use a normal merge to update your feature branch with the latest
+     development on master:
+     
+     - Check out your feature branch::
+     
+         git checkout some-new-feature
+     
+     - Merge the `master` branch into it::
+     
+         git merge master
+            
+     This will result in an extra merge commit.
 
 #. Test whether your updated feature branch still works as expected (having
    regression tests for your feature can help here).
@@ -307,39 +311,23 @@ When checking out the code, you should pull the submodules with ::
 Updating submodules after changing to a branch
 ----------------------------------------------
 
-If you change between branches, the target branch may contain a different
-version of the submodule as the previous one. This can be easily detected by
-issuing ::
+If you change between branches, the branch you change into may reference a
+different commit of a submodule as the branch you just have left. You can
+recognise this by looking at the status of the submodules after the branch
+change, e.g. by issuing ::
 
   git status
 
-after having changed the branch and looking for submodules with "modified"
-status. If any of the submodules is affected, you must align the submodules to
-the correct version (the one recorded for the branch you have changed to). This
-can be easily achieved for all submodules by issuing ::
+The directories containing affected submodules will have their status set to
+"modified". These submodules must be realigned to the correct commit (to the
+commit recorded for the current branch) before you do any other work in the
+branch. This you can for all submodules by issuing ::
 
   git submodule update --recursive
 
 
-Referencing submodules
-----------------------
-
-Since the code should be available for users without accounts on github.com, all
-submodules are included as web (https) links instead of ssh references. 
-
-If you work on the integration of the submodules, you might find it useful to
-globally configure git to substitute ssh links for the https references by
-issuing the command ::
-
-  git config --global url.ssh://git@github.com/.insteadOf https://github.com/
-
-You can alternatively set up this substitution for only your local `dftbplus`
-repository. You should run this command in the directory containing your copy
-and leave out the ``--global`` option.
-
-
-Updating submodules
--------------------
+Changing submodule content
+--------------------------
 
 If you need to modify the submodules, you should fork their respective projects
 and work according their development workflow.
@@ -364,3 +352,20 @@ following steps:
 
 #. Stage the submodule folder and the `CMakeFiles.txt` file for a commit and
    commit your changes.
+
+
+Referencing submodules
+----------------------
+
+Since the code should be available for users without accounts on github.com, all
+submodules are included as web (https) links instead of ssh references. 
+
+If you work on the integration of the submodules, you might find it useful to
+globally configure git to substitute ssh links for the https references by
+issuing the command ::
+
+  git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+
+You can alternatively set up this substitution for only your local `dftbplus`
+repository. You should run this command in the directory containing your copy
+and leave out the ``--global`` option.
