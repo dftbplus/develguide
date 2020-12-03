@@ -325,6 +325,13 @@ branch. This you can for all submodules by issuing ::
 
   git submodule update --recursive
 
+If not only the submodule commit id but also the repository URL of a submodule
+changes when switching to a new branch, you have to synchronise the repository
+URLs first before doing the update, e.g. ::
+
+  git submodule sync --recursive
+  git submodule update --recursive
+  
 
 Changing submodule content
 --------------------------
