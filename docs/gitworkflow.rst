@@ -29,17 +29,17 @@ developers are:
 
 In order to add a feature, you have to do the following steps:
 
-#. Fork the official (upstream) repository and clone it. (This step you have to
-   do only once.)
+#. Fork the official (upstream) repository and clone it. (This step allows you
+   to this only once.)
 
-#. Synchronize your `master` branch (``origin/master``) to be identical to
-   upstream `master` (``upstream master``).
+#. Synchronize your `master` branch (``origin/master``) to match upstream
+   `master` (``upstream master``).
 
 #. Derive a feature branch from the `master` branch of your forked project.
 
 #. Develop and finish your feature in your feature branch.
 
-#. Integrate eventual changes form the upstream master branch.
+#. Integrate eventual changes from the upstream master branch.
 
 #. Issue a *pull request* for your feature branch.
 
@@ -180,7 +180,7 @@ Developing your feature
    short and descriptive for the feature you are going to implement.
 
 #. Develop your new feature in your local branch. Make sure to add regression
-   tests for your feature in the test directory and to update the documentation.
+   testing for your feature in the test directory and update the documentation.
    You can commit your changes by ::
 
        git commit -m "Add some new feature ..."
@@ -188,7 +188,7 @@ Developing your feature
    You may make multiple commits if your development naturally dividides into
    multiple steps. But please note, that too many commits and especially commits
    containing broken or non-functional code make finding bugs (e.g. by
-   git-bisection) a real pain. Therefore, make sure that your branch only
+   git-bisection) a real pain. Therefore, try to make sure that your branch only
    contains *essential commits with working code in each commit*.
 
    In case, you wish to remove some intermediate commits in your feature branch,
@@ -205,8 +205,8 @@ Developing your feature
    * you squash your commits before any other branches had been derived from
      your feature branch and
 
-   * you squash your commits before any other branches had been merged into your
-     feature branch.
+   * you squash your commits before any other branches have been merged into
+     your feature branch.
 
 
 Merge the changes back into the upstream repository
@@ -222,9 +222,9 @@ implementing your feature.
 #. Integrate any changes that appeared on `master` during your feature
    development.
 
-   * If your feature branch consists of one/two commits only, it does not
-     contain any merge-commits and no other branches had been derived of it (and
-     you are an experienced git user) you may rebase your branch on current
+   * If your feature branch consists of only one or two commits, it does not
+     contain any merge-commits and no other branches had been derived from it
+     (and you are an experienced git user) you may rebase your branch on current
      `master`:
 
      - Check out your feature branch::
@@ -237,7 +237,7 @@ implementing your feature.
      
        Resolve any conflicts arrising during the rebase process.
 
-   * Othwerise use a normal merge to update your feature branch with the latest
+   * Otherwise use a normal merge to update your feature branch with the latest
      development on master:
      
      - Check out your feature branch::
@@ -311,23 +311,23 @@ When checking out the code, you should pull the submodules with ::
 Updating submodules after changing to a branch
 ----------------------------------------------
 
-If you change between branches, the branch you change into may reference a
-different commit of a submodule as the branch you just have left. You can
+If you switch between branches, the branch you change into may reference a
+different commit of a submodule than the branch you just have left. You can
 recognise this by looking at the status of the submodules after the branch
 change, e.g. by issuing ::
 
   git status
 
-The directories containing affected submodules will have their status set to
+The directories containing affected submodules will have their status set to be
 "modified". These submodules must be realigned to the correct commit (to the
 commit recorded for the current branch) before you do any other work in the
-branch. This you can for all submodules by issuing ::
+branch. You can do this for all submodules by issuing ::
 
   git submodule update --recursive
 
-If not only the submodule commit id but also the repository URL of a submodule
-changes when switching to a new branch, you have to synchronise the repository
-URLs first before doing the update, e.g. ::
+If both the submodule commit id and also the repository URL for the submodule
+change when switching to a new branch, you will have to synchronise the
+repository URLs first before doing the update, e.g. ::
 
   git submodule sync --recursive
   git submodule update --recursive
@@ -337,7 +337,9 @@ Changing submodule content
 --------------------------
 
 If you need to modify the submodules, you should fork their respective projects
-and work according their development workflow.
+and work according their development workflow (remember, that in several cases
+these are projects developed and maintained by groups not part of the DFTB+
+team).
 
 If you want to update DFTB+ to use a new version of a given submodule, do the
 following steps:
@@ -347,7 +349,7 @@ following steps:
 #. Fetch the relevant branch from the upstream-project of the submodule.
 
 #. Check out the commit which should be used by DFTB+. (If this commit is on a
-   different branch as the one recorded in the `.gitmodules` file in the DFTB+
+   different branch from the one recorded in the `.gitmodules` file in the DFTB+
    source folder, make sure to correct the branch name there.)
 
 #. Update the submodule commit ID's (recorded in `CMakeFiles.txt`) by
