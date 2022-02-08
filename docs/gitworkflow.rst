@@ -12,13 +12,13 @@ in `Understanding the GitHub Flow
 <https://guides.github.com/introduction/flow/>`_. The main points for most
 developers are:
 
-* Development happens based on the `master` branch, which always contains a
+* Development happens based on the `main` branch, which always contains a
   clean release-ready code.
 
 * Every feature is developed in a separate feature branch, which is derived from
-  the `master` branch. If the feature is mature enough (it works correctly, its
+  the `main` branch. If the feature is mature enough (it works correctly, its
   code is clean, it is well documented, thoroughly tested, etc.), the feature
-  branch is merged into the `master` branch.
+  branch is merged into the `main` branch.
 
 * In order to ease integration, feature branches should be **short living** and
   pull requests should only contain a **reasonably small amount** of
@@ -29,17 +29,17 @@ developers are:
 
 In order to add a feature, you have to do the following steps:
 
-#. Fork the official (upstream) repository and clone it. (This step allows you
-   to this only once.)
+#. Fork the official (upstream) repository on GitHub and make a local clone of
+   your fork (origin).
 
-#. Synchronize your `master` branch (``origin/master``) to match upstream
-   `master` (``upstream master``).
+#. Synchronize your `main` branch (``origin/main``) to match upstream
+   `main` (``upstream main``).
 
-#. Derive a feature branch from the `master` branch of your forked project.
+#. Derive a feature branch from the `main` branch of your forked project.
 
 #. Develop and finish your feature in your feature branch.
 
-#. Integrate eventual changes from the upstream master branch.
+#. Integrate eventual changes from the upstream main branch.
 
 #. Issue a *pull request* for your feature branch.
 
@@ -47,7 +47,7 @@ In order to add a feature, you have to do the following steps:
    required changes to your feature branch.
 
 #. When you obtain the notification that your feature branch has been merged to
-   the upstream `master` branch, delete the feature branch in your personal
+   the upstream `main` branch, delete the feature branch in your personal
    repository.
 
 #. In order to develop the next feature, execute the above steps again,
@@ -73,7 +73,7 @@ Fork the repository
 
        git clone git@github.com:YOUR_USER_NAME/dftbplus.git
 
-#. Set up a mirror of the upstream reference repository::
+#. Register the official repository as `upstream` in your git clone::
 
        git remote add upstream git@github.com:dftbplus/dftbplus.git
 
@@ -110,13 +110,13 @@ our special `git commit hook
 You may wish to make this a global hook for all of your git repositories by
 adding it to an init.templatedir directory. This can be added for `all`
 repositories with ::
-  
+
   git config --global init.templatedir '~/.git-templates'
   mkdir -p ~/.git-templates/hooks
 
 The commit-msg file can then be placed in `~/.git-templates/hooks/commit-msg`.
 We would then also suggest setting the permission to be user writable only ::
-  
+
   chmod -R 700 ~/.git-templates
 
 Any new local repositories will settings specified from this directory, unless
@@ -129,7 +129,7 @@ init.templatedir ::
 Again, any local `.git/` directory overrides settings in `~/.git-templates`
 
 
-Synchronising to the upstream master branch
+Synchronising to the upstream main branch
 ===========================================
 
 Before you start developing a feature, you should make sure that you implement
@@ -137,46 +137,41 @@ your feature in the most recent version of the code. This minimises the chances
 of conflicts (and additional work needed from you) when your feature is later
 merged into the upstream repository:
 
-#. Pull the recent changes from the upstream `master` branch into your local
-   `master` branch::
+#. Pull the recent changes from the upstream `main` branch into your local
+   `main` branch::
 
-       git checkout master
+       git checkout main
+       git pull --ff-only upstream main
+
+   Upload the changes in your local `main` branch to GitHub by issuing::
+
+       git push origin main
+
+   **Note:** if the ``git pull --ff-only upstream main`` command fails, you
+   have probably polluted your personal main branch, and it can no longer be
+   made to exactly match the upstream one. In that case, you may revert it via a
+   hard reset and then pull the current upstream/main again::
+
+       git reset --hard upstream/main
        git pull --ff-only upstream master
 
-   Upload the changes in your local `master` branch to GitHub by issuing::
 
-       git push origin master
-
-   **Note:** if the ``git pull --ff-only upstream master`` command fails, you
-   have probably polluted your personal master branch, and it can no longer be
-   made to exactly match the upstream one. In that case, you may revert it via a
-   hard reset::
-
-       git reset --hard upstream/master
-
-   You will then have to derive a new feature branch from the reset `master`
-   branch and then add your changes manually to this new feature
-   branch. Therefore, to avoid this extra work, make sure you *never change
-   your personal `master` branch*, apart from synchronising it with upstream
-   `master`.
-
-  
 Developing your feature
 =======================
 
-#. Check out your `master` branch, which you should have synchronised to
-   upstream `master` as described in the previous section::
+#. Check out your `main` branch, which you should have synchronised to
+   upstream `main` as described in the previous section::
 
-     git checkout master
+     git checkout main
 
 #. Create you own feature branch::
 
      git checkout -b some-new-feature
 
    To develop a new feature you should always create a new branch derived from
-   `master`.  You should never work on the `master` branch directly, or merge
+   `main`.  You should never work on the `main` branch directly, or merge
    anything from your feature branches onto it. Its only purpose is to mirror
-   the status of the upstream `master` branch. The feature branch name should be
+   the status of the upstream `main` branch. The feature branch name should be
    short and descriptive for the feature you are going to implement.
 
 #. Develop your new feature in your local branch. Make sure to add regression
@@ -216,38 +211,38 @@ First, make sure, that your feature integrates well into the most recent main
 code version. Be aware that the upstream code may have evolved while you were
 implementing your feature.
 
-#. Synchronise your `master` branch to the upstream `master`, as written in the
-   section `Synchronising to the upstream master branch`_.
+#. Synchronise your `main` branch to the upstream `main`, as written in the
+   section `Synchronising to the upstream main branch`_.
 
-#. Integrate any changes that appeared on `master` during your feature
+#. Integrate any changes that appeared on `main` during your feature
    development.
 
    * If your feature branch consists of only one or two commits, it does not
      contain any merge-commits and no other branches had been derived from it
      (and you are an experienced git user) you may rebase your branch on current
-     `master`:
+     `main`:
 
      - Check out your feature branch::
-          
+
          git checkout some-new-feature
-       
-     - Rebase it on `master`::
-           
-         git rebase master
-     
+
+     - Rebase it on `main`::
+
+         git rebase main
+
        Resolve any conflicts arrising during the rebase process.
 
    * Otherwise use a normal merge to update your feature branch with the latest
-     development on master:
-     
+     development on main:
+
      - Check out your feature branch::
-     
+
          git checkout some-new-feature
-     
-     - Merge the `master` branch into it::
-     
-         git merge master
-            
+
+     - Merge the `main` branch into it::
+
+         git merge main
+
      This will result in an extra merge commit.
 
 #. Test whether your updated feature branch still works as expected (having
@@ -265,7 +260,7 @@ implementing your feature.
 
 #. Once the discussion on your pull request is finished, one of the developers
    with write permission to the upstream repository will merge your branch into
-   the upstream `master` branch. Once this has happened, you should see your
+   the upstream `main` branch. Once this has happened, you should see your
    changes showing up there.
 
 
@@ -275,11 +270,11 @@ Delete your feature branch
 Once your feature has been merged into the upstream code you should delete your
 feature branch, both locally and on GitHub as well:
 
-#. In order to delete the feature branch locally, change to the `master` branch
+#. In order to delete the feature branch locally, change to the `main` branch
    (or any branch other than your feature branch) and delete your feature
    branch::
 
-       git checkout master
+       git checkout main
        git branch -d some-new-feature
 
 #. In order to delete the feature branch on GitHub as well use the command::
@@ -289,7 +284,7 @@ feature branch, both locally and on GitHub as well:
 This closes the development cycle of your feature and opens a new one for the
 next one you are going to develop. You can then again create a new branch for
 the new feature and develop your next extension starting with the steps
-described in section `Synchronising to the upstream master branch`_.
+described in section `Synchronising to the upstream main branch`_.
 
 
 A few notes about Submodules
@@ -331,7 +326,7 @@ repository URLs first before doing the update, e.g. ::
 
   git submodule sync --recursive
   git submodule update --recursive
-  
+
 
 Changing submodule content
 --------------------------
@@ -367,7 +362,7 @@ Referencing submodules
 ----------------------
 
 Since the code should be available for users without accounts on github.com, all
-submodules are included as web (https) links instead of ssh references. 
+submodules are included as web (https) links instead of ssh references.
 
 If you work on the integration of the submodules, you might find it useful to
 globally configure git to substitute ssh links for the https references by
