@@ -25,7 +25,7 @@ Line length and indentation
   continuation lines.
 
 * **Nested blocks** are indented by **2** white spaces::
-    
+
      write(*, *) "Nested block follows"
      do ii = 1, 100
        write(*, *) "This is the nested block"
@@ -70,8 +70,8 @@ Line length and indentation
     #:endif
     end do
 
-    
-    
+
+
 Naming
 ======
 
@@ -86,7 +86,7 @@ modifications.
 
 * **Constants** (parameters) use the **lowerCamelCase** convention similar to
   variables ::
-    
+
       integer, parameter :: maxArraySize = 100
 
   with the exception of the constants used to define the kind parameter for
@@ -124,7 +124,7 @@ modifications.
         class(TType), intent(inout) :: this
 	:
       end subroutine typeBoundProcedure
-      
+
 
 * **Module** names follow **lower_case_with_underscore** convention::
 
@@ -151,7 +151,7 @@ Please use white spaces to make the code readable. In general, you **must use**
 white spaces in following situations:
 
 * Around arithmetic operators::
-    
+
       2 + 2
 
 * Around assignment and pointer assignment operators::
@@ -244,7 +244,7 @@ Comments
       energy = 2.0_wp * energy
 
 * Generally, write the comment *before* the code snippet it documents::
-   
+
       ! Loop over all neighbours
       do iNeigh = 1, nNeighbours
         :
@@ -257,7 +257,7 @@ Comments
 
 * Never use multi-line suffix comments, as an indenting editor would mess up the
   indentation of subsequent lines::
-    
+
       bb = 2 * aa  ! This comment goes over multiple lines, therefore, it
                    ! should stay ALWAYS before the code snippet and NOT HERE.
 
@@ -269,14 +269,14 @@ Comments
       ! Workaround: gfortran 4.8
       ! Finalisation not working, we have to deallocate explicitly
       deallocate(myPointer)
-      
-      
+
+
 * Comments should always start with one bang only. Comments with two bangs are
   reserved for source code documentation systems::
 
       ! This block needs a documentation
       do ii = 1, 2
-        : 
+        :
       end do
 
 * If you need a comment for a longer block of code, consider instead packaging
@@ -302,7 +302,7 @@ Comments
       if (.not. found) then
         ind = 0
       end if
-      
+
       someStatementAfter
 
 Allocation status
@@ -310,7 +310,7 @@ Allocation status
 
 At several places, the allocation status of a variable is used to signal choices
 about logical flow in the code::
-  
+
   !> SCC module internal variables
   type(TScc), allocatable :: sccCalc
   .
@@ -325,3 +325,42 @@ This is to be preferred to the use of additional logical variables if possible.
 Part of the reason for this choice is that from Fortran 2008 onwards, optional
 arguments to subroutines and functions are treated as not-present if not
 allocated.
+
+
+File I/O
+========
+
+All files must be opened (connected to a descriptor) by the ``openFile()``
+routine, which initializes a ``type(TFileDescriptor)`` instance. Whenever
+possible, use the ``mode`` argument to specify the file opening type::
+
+  call openFile(fd, "test.dat", mode="r")
+
+The ``mode`` specifier has following possible values:
+
+  * ``r``: read (file must exist, it will be positioned at its start),
+
+  * ``r+``: read/write (file must exist, it will be positioned at its start),
+
+  * ``w``: write (file will be truncated if already existing otherwise created)
+
+  * ``w+``: read/write (file will truncated if already existsing otherwise
+     created)
+
+  * ``a``: appended write (file will be opened if it already exists, otherwise
+    created; it will be positioned at its end)
+
+  * ``a+``: appended read/write (file will be opened if it already exists,
+    otherwise created; it will be positioned at its end)
+
+Additionally the letter ``b`` can be appended to open the file in binary
+(unformatted) mode.
+
+For reading, writing and rewinding, the ``%unit`` field of the descriptor should
+be used. Do not change the value of ``%unit``. Do not close the file with the
+``close`` statement, but use the ``closeFile()`` routine instead. (Actually,
+files are automatically closed, if the connected descriptor leaves the scope,
+but for better readability of the code, we close them explicitely by calling
+the ``closeFile()`` routine.) Calling ``closeFile()`` with an unconnected
+descriptor is fine, it will simply do nothing. This should allow you to
+eliminate most guarding ``if`` statements around any ``closeFile()`` call.
