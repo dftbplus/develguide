@@ -305,6 +305,43 @@ Comments
       
       someStatementAfter
 
+
+Block constructs
+================
+
+* Block constructs are normally used in their verbose form, with block opening
+  and corresponding block closing in separate lines::
+
+    if (some_conditions) then
+      ! Do something
+      ...
+    end if
+
+* The closing form should have a space between the ``end`` keyword and the
+  construct type::
+
+    do ii = 1, 10
+      ...
+    end do  ! instead of "enddo"
+
+* If the block construct contains an expression within obligatory parentheses,
+  insert one space between the block type and the opening parenthesis::
+
+    if (some_condition) then  ! instead of "if(some_condition)"
+    
+    where (aa == 0)           ! instead of "where(aa == 0)"
+
+* Some block constructs have alternative one-line short forms without closing
+  statements (e.g. ``if``, ``where``). Only use their short form, if it is
+  readable and fits into a single line::
+
+    if (ioStat /= 0) return
+
+    if (allocated(someArray)) someArray(:,:) = 0.0_dp
+
+    where (abs(aa) >= epsilon(0.0_dp)) aa = 1.0_dp / aa
+
+    
 Allocation status
 =================
 
