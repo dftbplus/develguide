@@ -341,23 +341,23 @@ The ``mode`` specifier accepts the following possible options:
   * ``r``: read (file must exist, the descriptor is at the start of the file
     contents),
 
-  * ``r+``: read and write (file must exist, the descriptor is at the start of the file
-    contents),
+  * ``r+``: read and write (file must exist, the descriptor is at the start of
+    the file contents),
 
   * ``w``: write (file will be replaced if already existing, otherwise created)
 
-  * ``w+``: read and write (file will be replaced if it already exists, otherwise
-     created)
+  * ``w+``: read and write (file will be replaced if it already exists,
+     otherwise created)
 
   * ``a``: appended write (file will be opened if it already exists, otherwise
     created; the descriptor will be positioned at its end)
 
-  * ``a+``: appended read/write (file will be opened if it already exists,
+  * ``a+``: appended read and write (file will be opened if it already exists,
     otherwise created; the descriptor will be positioned at its end)
 
 Additionally the letter ``b`` can be appended to open the file in binary
 (unformatted) mode (e.g. ``rb`` for reading a binary file or ``a+b`` for
-appending to a binary file in read/write mode).
+appending to a binary file in read and write mode).
 
 For reading, writing and rewinding, the ``%unit`` field of the descriptor should
 be used. Do not change the value of ``%unit``. Do not close the file with the
