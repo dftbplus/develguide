@@ -330,28 +330,28 @@ allocated.
 File I/O
 ========
 
-All files must be opened (connected to a descriptor) by the ``openFile()``
+All files must be opened (i.e., connected to a descriptor) by the ``openFile()``
 routine, which initializes a ``type(TFileDescriptor)`` instance. Whenever
 possible, use the ``mode`` argument to specify the file opening type::
 
   call openFile(fd, "test.dat", mode="r")
 
-The ``mode`` specifier has following possible values:
+The ``mode`` specifier accepts the following possible options:
 
-  * ``r``: read (file must exist, it will be positioned at its start),
+  * ``r``: read (file must exist, the descriptor the start of the file contents),
 
-  * ``r+``: read/write (file must exist, it will be positioned at its start),
+  * ``r+``: read/write (file must exist, the descriptor the start of the file contents),
 
-  * ``w``: write (file will be truncated if already existing otherwise created)
+  * ``w``: write (file will be replaced if already existing, otherwise created)
 
-  * ``w+``: read/write (file will truncated if already existsing otherwise
+  * ``w+``: read/write (file will be replaced if it already exists, otherwise
      created)
 
   * ``a``: appended write (file will be opened if it already exists, otherwise
-    created; it will be positioned at its end)
+    created; the descriptor will be positioned at its end)
 
   * ``a+``: appended read/write (file will be opened if it already exists,
-    otherwise created; it will be positioned at its end)
+    otherwise created; the descriptor will be positioned at its end)
 
 Additionally the letter ``b`` can be appended to open the file in binary
 (unformatted) mode.
@@ -359,7 +359,7 @@ Additionally the letter ``b`` can be appended to open the file in binary
 For reading, writing and rewinding, the ``%unit`` field of the descriptor should
 be used. Do not change the value of ``%unit``. Do not close the file with the
 ``close`` statement, but use the ``closeFile()`` routine instead. (Actually,
-files are automatically closed, if the connected descriptor leaves the scope,
+files are automatically closed, if the connected descriptor leaves code scope,
 but for better readability of the code, we close them explicitely by calling
 the ``closeFile()`` routine.) Calling ``closeFile()`` with an unconnected
 descriptor is fine, it will simply do nothing. This should allow you to
