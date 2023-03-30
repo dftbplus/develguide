@@ -338,15 +338,15 @@ possible, use the ``mode`` argument to specify the file opening type::
 
 The ``mode`` specifier accepts the following possible options:
 
-  * ``r``: read (file must exist, the descriptor the start of the file
+  * ``r``: read (file must exist, the descriptor is at the start of the file
     contents),
 
-  * ``r+``: read/write (file must exist, the descriptor the start of the file
+  * ``r+``: read and write (file must exist, the descriptor is at the start of the file
     contents),
 
   * ``w``: write (file will be replaced if already existing, otherwise created)
 
-  * ``w+``: read/write (file will be replaced if it already exists, otherwise
+  * ``w+``: read and write (file will be replaced if it already exists, otherwise
      created)
 
   * ``a``: appended write (file will be opened if it already exists, otherwise
