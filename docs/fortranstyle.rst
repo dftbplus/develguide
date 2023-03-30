@@ -338,9 +338,11 @@ possible, use the ``mode`` argument to specify the file opening type::
 
 The ``mode`` specifier accepts the following possible options:
 
-  * ``r``: read (file must exist, the descriptor the start of the file contents),
+  * ``r``: read (file must exist, the descriptor the start of the file
+    contents),
 
-  * ``r+``: read/write (file must exist, the descriptor the start of the file contents),
+  * ``r+``: read/write (file must exist, the descriptor the start of the file
+    contents),
 
   * ``w``: write (file will be replaced if already existing, otherwise created)
 
@@ -354,7 +356,8 @@ The ``mode`` specifier accepts the following possible options:
     otherwise created; the descriptor will be positioned at its end)
 
 Additionally the letter ``b`` can be appended to open the file in binary
-(unformatted) mode.
+(unformatted) mode (e.g. ``rb`` for reading a binary file or ``a+b`` for
+appending to a binary file in read/write mode).
 
 For reading, writing and rewinding, the ``%unit`` field of the descriptor should
 be used. Do not change the value of ``%unit``. Do not close the file with the
@@ -363,4 +366,4 @@ files are automatically closed, if the connected descriptor leaves code scope,
 but for better readability of the code, we close them explicitely by calling
 the ``closeFile()`` routine.) Calling ``closeFile()`` with an unconnected
 descriptor is fine, it will simply do nothing. This should allow you to
-eliminate most guarding ``if`` statements around any ``closeFile()`` call.
+eliminate most guarding ``if`` statements around any ``closeFile()`` calls.
