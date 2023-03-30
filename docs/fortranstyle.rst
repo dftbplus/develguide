@@ -339,7 +339,7 @@ Block constructs
 
     if (allocated(someArray)) someArray(:,:) = 0.0_dp
 
-    where (aa /= 0.0_dp) aa = 1.0_dp / aa
+    where (abs(aa) >= epsilon(0.0_dp)) aa = 1.0_dp / aa
 
     
 Allocation status
