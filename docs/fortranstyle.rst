@@ -238,6 +238,22 @@ Comments
   <https://github.com/cmacmackin/ford>`_ literate comments for publicly visible
   interfaces and variables.
 
+* Variable/module/routine comments on multiple lines should use a
+  double-bang for the second and subsequent lines, with the first line
+  capitalised ::
+
+    !> This is a multi-line comment for something,
+    !! it continues on a second line.
+
+* Adapt your comment if it starts with a term that is expected to be in
+  lower-case ::
+
+    !> The k-point
+
+  instead of ::
+
+    !> K-point
+
 * Comments are indented to the same position as the code they document::
 
       ! Take spin degeneracy into account
