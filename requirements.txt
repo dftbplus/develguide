@@ -1,0 +1,3 @@
+sphinx >= 1.8
+sphinx-book-theme
+sphinx-design
