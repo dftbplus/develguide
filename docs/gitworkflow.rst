@@ -174,15 +174,16 @@ Developing your feature
    the status of the upstream `main` branch. The feature branch name should be
    short and descriptive for the feature you are going to implement.
 
-#. Develop your new feature in your local branch. Make sure to add regression
-   testing for your feature in the test directory and update the documentation.
+#. Develop your new feature in your local branch. Make sure to add
+   regression testing for your feature in the test directory (and
+   possibly unit tests as well) and also update the documentation.
    You can commit your changes by ::
 
        git commit -m "Add some new feature ..."
 
    You may make multiple commits if your development naturally dividides into
    multiple steps. But please note, that too many commits and especially commits
-   containing broken or non-functional code make finding bugs (e.g. by
+   containing broken or non-functional code make finding bugs (e.g. by use of
    git-bisection) a real pain. Therefore, try to make sure that your branch only
    contains *essential commits with working code in each commit*.
 
@@ -203,6 +204,28 @@ Developing your feature
    * you squash your commits before any other branches have been merged into
      your feature branch.
 
+Long lived branches
+-------------------
+
+Git workflows typically operate best when branches are short lived and
+a merged rapidly (reducing chances of conflicts with the upstream
+repository). However, research-driven development can require longer
+branch lifetimes, hence there are two strategies for how feature
+branches can follow the main branch. These have implications on when
+you should squash your own commits in the feature branch ::
+
+  1. The feature branch is updated with the recent changes on main by
+     merging main *into* the feature branch. In this case, if you want
+     to squash your commits in the feature branch, you should do so
+     *before merging* main into it. Squashing afterwards becomes
+     rather cumbersome (you would need to interactively squash commits
+     and to avoid those coming from the main branch), so you should
+     not do it this way.
+
+  2. The feature branch is updated with the recent changes on main by
+     rebasing it onto main. In this case it does not matter at which
+     stage you squash the commits within your branch, although it is
+     much more practical to squash them before rebasing onto main.
 
 Merge the changes back into the upstream repository
 ===================================================
@@ -217,10 +240,10 @@ implementing your feature.
 #. Integrate any changes that appeared on `main` during your feature
    development.
 
-   * If your feature branch consists of only one or two commits, it does not
-     contain any merge-commits and no other branches had been derived from it
-     (and you are an experienced git user) you may rebase your branch on current
-     `main`:
+   * If your feature branch consists of only one or two commits, does
+     not contain any merge-commits, and no other branches have been
+     derived from it (and you are an experienced git user) you may
+     want to rebase your branch on current `main`:
 
      - Check out your feature branch::
 
