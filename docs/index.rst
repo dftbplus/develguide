@@ -7,7 +7,6 @@ DFTB+ Developers Guide
 
    gitworkflow.rst
    maintainerflow.rst
-   fortranstyle.rst
-   python.rst
+   languages/index.rst
    recipes.rst
    licence.rst
