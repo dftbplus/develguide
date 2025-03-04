@@ -268,8 +268,11 @@ implementing your feature.
 
      This will result in an extra merge commit.
 
-#. Test whether your updated feature branch still works as expected (having
-   regression tests for your feature can help here).
+#. Test whether your updated feature branch still works as expected
+   (having regression and/or unit tests for your feature can help
+   here). See the DFTB+ `code notes
+   <https://github.com/dftbplus/dftbplus/tree/main/doc/dftb%2B/code>`_
+   for how to add new tests for your feature branch.
 
 #. Publish your feature branch to your personal repository on GitHub::
 
@@ -277,6 +280,13 @@ implementing your feature.
 
 #. Issue a pull request on GitHub for your `some-new-feature` branch (look for
    the upwards arrow in the left menu).
+
+#. The github actions will run code tests on your pull request. You
+   may receive emails about these tests if they fail. In this case,
+   visit your pull request and check the build and testing history for
+   the relevant actions. In several cases, you can download a detailed
+   archive of the failed test outputs. Fix and problems and push your
+   changes to your feature branch.
 
 #. Wait for the comments of other developers, apply any fixes you are asked to
    make, and push the changes to your feature branch on GitHub.
