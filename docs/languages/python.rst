@@ -9,10 +9,10 @@ basis of the python style used in the code.
 for code checking. In many cases, python unit tests are also implemented (see
 `test/tools/dptools/` for examples).
 
-For example to test the straingen script for Python3 compliance, from the top of
+For example to test the straingen script for Python compliance, from the top of
 the repository type::
   
-  env PYTHONPATH=$PWD/tools/dptools/src pylint3 --rcfile \
+  env PYTHONPATH=$PWD/tools/dptools/src pylint --rcfile \
   utils/srccheck/pylint/pylintrc-3.ini tools/dptools/bin/straingen
 
 while to test for correct performance::
